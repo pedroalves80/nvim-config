@@ -214,6 +214,7 @@ return {
 
 	{
 		'windwp/nvim-autopairs',
+		event = 'InsertEnter',
 		config = function()
 			require('nvim-autopairs').setup()
 		end,
@@ -229,12 +230,27 @@ return {
 
 	{
 		'f-person/git-blame.nvim',
-		event = 'BufRead',
+		event = 'InsertEnter',
 		config = function()
 			vim.cmd [[
         nnoremap <leader>gb <cmd>GitBlameToggle<cr>
       ]]
 		end,
+	},
+
+
+	{
+		'zbirenbaum/copilot.lua',
+		event = 'InsertEnter',
+		opts = {
+			suggestion = {
+				auto_trigger = true,
+				keymap = {
+					accept = '<F5>',
+				},
+			},
+
+		},
 	},
 
 	{

@@ -220,7 +220,6 @@ lspconfig.cssls.setup({
 
 -- Volar Vue Server
 lspconfig.volar.setup({
-    cmd = { home_directory .. '/AppData/Roaming/npm/vue-language-server.cmd', '--stdio' },
     capabilities = capabilities,
     root_dir = function(filename)
         return find_project_root(filename)
