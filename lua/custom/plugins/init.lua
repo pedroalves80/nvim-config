@@ -53,6 +53,7 @@ return {
 	{
 		-- Autocompletion
 		'hrsh7th/nvim-cmp',
+		event = 'InsertEnter',
 		dependencies = {
 			-- Snippet Engine & its associated nvim-cmp source
 			'L3MON4D3/LuaSnip',
@@ -68,6 +69,7 @@ return {
 
 	-- Useful plugin to show you pending keybinds.
 	{ 'folke/which-key.nvim',          opts = {} },
+
 	{
 		-- Adds git related signs to the gutter, as well as utilities for managing changes
 		'lewis6991/gitsigns.nvim',
@@ -176,7 +178,9 @@ return {
 		dependencies = 'nvim-tree/nvim-web-devicons',
 		config = function()
 			vim.opt.termguicolors = true;
-			require('bufferline').setup()
+			require('bufferline').setup(
+				require 'custom.plugins.configs.bufferline'
+			)
 		end,
 		init = function()
 			return require 'custom.core.mappings'
@@ -197,7 +201,7 @@ return {
 	-- Todo Comments Hightlights
 	{
 		'folke/todo-comments.nvim',
-		lazy = false,
+		event = 'BufRead',
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		config = function()
 			require('todo-comments').setup()
@@ -213,6 +217,7 @@ return {
 	},
 
 	{
+		event = 'InsertEnter',
 		'windwp/nvim-autopairs',
 		config = function()
 			require('nvim-autopairs').setup()

@@ -28,7 +28,8 @@ require('mason-lspconfig').setup({
         'tsserver',
         'volar',
         'yamlls',
-        'eslint'
+        'eslint',
+        'prismals'
     },
 })
 
