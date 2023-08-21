@@ -45,6 +45,10 @@ vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
+vim.keymap.set('n', '<leader>gs', require('telescope.builtin').git_status, { desc = '[S]earch [G]it [S]tatus' })
+vim.keymap.set('n', '<leader>gb', require('telescope.builtin').git_branches, { desc = '[S]earch [G]it [B]ranches' })
+vim.keymap.set('n', '<leader>gc', require('telescope.builtin').git_bcommits, { desc = '[S]earch [G]it [C]ommits' })
+
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
