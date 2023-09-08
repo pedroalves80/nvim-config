@@ -30,6 +30,21 @@ require 'custom.core.configs'
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    file_ignore_patterns = { 
+        "node_modules",
+        "vendor",
+        "dist",
+        "build",
+        "target",
+        ".git",
+        ".nuxt",
+        "share",
+        "cache",
+        "lib",
+        "deps",
+        "bin",
+    },
+
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -45,7 +60,6 @@ pcall(require('telescope').load_extension, 'fzf')
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 require 'custom.core.lsp-config'
-require 'custom.core.null-ls'
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`

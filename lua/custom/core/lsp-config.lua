@@ -29,7 +29,7 @@ require('mason-lspconfig').setup({
         'volar',
         'yamlls',
         'eslint',
-        'prismals'
+        'prismals',
     },
 })
 
@@ -45,8 +45,6 @@ local function find_project_root(filename)
     end
     return nil
 end
-
-local home_directory = os.getenv('USERPROFILE')
 
 -- Lspconfig
 local lspconfig = require('lspconfig')
@@ -85,8 +83,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, bufopts('Singature Help'))
         vim.keymap.set('n', 'gR', vim.lsp.buf.references, bufopts('Go to Reference'))
         vim.keymap.set('n', '<space>fm', function()
-            vim.lsp.buf.format({ async = true })
-        end, bufopts('Formatting with LSP'))
+            -- if filetype is javascript, typescript, vue, html run eslintfix all, else run lsp format
+            if vim.bo.filetype == 'javascript' or vim.bo.filetype == 'typescript' or vim.bo.filetype == 'vue' or vim.bo.filetype == 'html' then
+                vim.cmd('EslintFixAll')
+            else
+                vim.lsp.buf.format(nil)
+            end
+            --vim.lsp.buf.format({ async = true })
+        end, bufopts('Formatting with Eslint'))
     end,
 })
 
@@ -167,6 +171,20 @@ lspconfig.lua_ls.setup({
             },
         },
     },
+    on_attach = function(client, bufnr)
+        client.server_capabilities.document_formatting = true
+        if client.server_capabilities.document_formatting then
+            local au_lsp = vim.api.nvim_create_augroup('eslint_lsp', { clear = true })
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                pattern = '*',
+                callback = function()
+                    vim.lsp.buf.format(nil)
+                end,
+                group = au_lsp,
+            })
+        end
+    end,
+
 })
 
 -- JavaScript Server
@@ -196,6 +214,20 @@ lspconfig.tsserver.setup({
 lspconfig.pyright.setup({
     capabilities = capabilities,
     handlers = handlers,
+    on_attach = function(client, bufnr)
+        client.server_capabilities.document_formatting = true
+        if client.server_capabilities.document_formatting then
+            local au_lsp = vim.api.nvim_create_augroup('eslint_lsp', { clear = true })
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                pattern = '*',
+                callback = function()
+                    vim.lsp.buf.format(nil)
+                end,
+                group = au_lsp,
+            })
+        end
+    end,
+
 })
 
 -- Emmet Server
@@ -217,6 +249,20 @@ lspconfig.cssls.setup({
             },
         },
     },
+    on_attach = function(client, bufnr)
+        client.server_capabilities.document_formatting = true
+        if client.server_capabilities.document_formatting then
+            local au_lsp = vim.api.nvim_create_augroup('eslint_lsp', { clear = true })
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                pattern = '*',
+                callback = function()
+                    vim.lsp.buf.format(nil)
+                end,
+                group = au_lsp,
+            })
+        end
+    end,
+
 })
 
 -- Volar Vue Server
@@ -314,6 +360,19 @@ lspconfig.texlab.setup({
 lspconfig.intelephense.setup({
     capabilities = capabilities,
     handlers = handlers,
+    on_attach = function(client, bufnr)
+        client.server_capabilities.document_formatting = true
+        if client.server_capabilities.document_formatting then
+            local au_lsp = vim.api.nvim_create_augroup('eslint_lsp', { clear = true })
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                pattern = '*',
+                callback = function()
+                    vim.lsp.buf.format(nil)
+                end,
+                group = au_lsp,
+            })
+        end
+    end,
 })
 
 -- YAML Server
@@ -341,12 +400,38 @@ lspconfig.yamlls.setup({
             tabSize = 2,
         },
     },
+    on_attach = function(client, bufnr)
+        client.server_capabilities.document_formatting = true
+        if client.server_capabilities.document_formatting then
+            local au_lsp = vim.api.nvim_create_augroup('eslint_lsp', { clear = true })
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                pattern = '*',
+                callback = function()
+                    vim.lsp.buf.format(nil)
+                end,
+                group = au_lsp,
+            })
+        end
+    end,
 })
 
 -- Rust
 lspconfig.rust_analyzer.setup({
     capabilities = capabilities,
     handlers = handlers,
+    on_attach = function(client, bufnr)
+        client.server_capabilities.document_formatting = true
+        if client.server_capabilities.document_formatting then
+            local au_lsp = vim.api.nvim_create_augroup('eslint_lsp', { clear = true })
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                pattern = '*',
+                callback = function()
+                    vim.lsp.buf.format(nil)
+                end,
+                group = au_lsp,
+            })
+        end
+    end,
 })
 
 lspconfig.eslint.setup({
@@ -362,7 +447,8 @@ lspconfig.eslint.setup({
             vim.api.nvim_create_autocmd('BufWritePre', {
                 pattern = '*',
                 callback = function()
-                    vim.lsp.buf.format(nil)
+                    -- vim.lsp.buf.format(nil)
+                    vim.cmd('EslintFixAll')
                 end,
                 group = au_lsp,
             })

@@ -26,16 +26,17 @@ vim.keymap.set('i', '<C-e>', '<End>', { desc = 'End of line' })
 -- Bufferline
 vim.keymap.set('n', '<tab>', function()
   require('bufferline').cycle(1)
+
 end, { desc = 'Goto next buffer' })
+
 
 vim.keymap.set('n', '<S-tab>', function()
   require('bufferline').cycle(-1)
 end, { desc = 'Goto prev buffer' })
 
 vim.keymap.set('n', '<leader>x', function()
-  vim.cmd('bwipeout!')
+vim.cmd('bwipeout!')
 end, { desc = 'Close Buffer' })
-
 
 -- Telescope
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
