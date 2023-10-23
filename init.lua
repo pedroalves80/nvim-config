@@ -30,19 +30,19 @@ require 'custom.core.configs'
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
-    file_ignore_patterns = { 
-        "node_modules",
-        "vendor",
-        "dist",
-        "build",
-        "target",
-        ".git",
-        ".nuxt",
-        "share",
-        "cache",
-        "lib",
-        "deps",
-        "bin",
+    file_ignore_patterns = {
+      'node_modules',
+      'vendor',
+      'dist',
+      'build',
+      'target',
+      '.git',
+      '.nuxt',
+      'share',
+      'cache',
+      'lib',
+      'deps',
+      'bin',
     },
 
     mappings = {

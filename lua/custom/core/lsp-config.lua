@@ -242,11 +242,18 @@ lspconfig.emmet_ls.setup({
 lspconfig.cssls.setup({
     capabilities = capabilities,
     handlers = handlers,
+    filetypes = { 'css', 'less', 'scss', 'sass' },
     settings = {
         css = {
             lint = {
                 unknownAtRules = 'ignore',
             },
+        },
+        scss = {
+            lint = {
+                unknownAtRules = 'ignore',
+            },
+            validate = true
         },
     },
     on_attach = function(client, bufnr)
@@ -448,7 +455,12 @@ lspconfig.eslint.setup({
                 pattern = '*',
                 callback = function()
                     -- vim.lsp.buf.format(nil)
-                    vim.cmd('EslintFixAll')
+
+                    if vim.bo.filetype == 'scss' or vim.bo.filetype == 'css' then
+                        vim.lsp.buf.format(nil)
+                    else
+                        vim.cmd('EslintFixAll')
+                    end
                 end,
                 group = au_lsp,
             })
