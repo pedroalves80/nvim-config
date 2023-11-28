@@ -220,8 +220,8 @@ return {
 	},
 
 	{
-		event = 'InsertEnter',
 		'windwp/nvim-autopairs',
+		event = 'InsertEnter',
 		config = function()
 			require('nvim-autopairs').setup()
 		end,
@@ -229,7 +229,7 @@ return {
 
 	{
 		'windwp/nvim-ts-autotag',
-		event = 'InsertEnter',
+		event = 'BufRead',
 		config = function()
 			require('nvim-ts-autotag').setup()
 		end,
@@ -237,7 +237,7 @@ return {
 
 	{
 		'f-person/git-blame.nvim',
-		event = 'InsertEnter',
+		event = 'BufRead',
 		config = function()
 			vim.cmd [[
         nnoremap <leader>gb <cmd>GitBlameToggle<cr>
@@ -259,4 +259,30 @@ return {
 
 		},
 	},
+
+	{
+		'akinsho/git-conflict.nvim',
+		version = '*',
+		config = true,
+		event = 'BufRead',
+	},
+
+	{
+		'kevinhwang91/nvim-ufo',
+		dependencies = {
+			'kevinhwang91/promise-async'
+		},
+	},
+
+	{
+    'numToStr/Comment.nvim',
+    opts = {
+        -- add any options here
+    },
+    lazy = false,
+		config = function()
+				require('Comment').setup()
+		end,
+	}
+
 }

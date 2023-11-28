@@ -26,7 +26,6 @@ vim.keymap.set('i', '<C-e>', '<End>', { desc = 'End of line' })
 -- Bufferline
 vim.keymap.set('n', '<tab>', function()
   require('bufferline').cycle(1)
-
 end, { desc = 'Goto next buffer' })
 
 
@@ -35,7 +34,7 @@ vim.keymap.set('n', '<S-tab>', function()
 end, { desc = 'Goto prev buffer' })
 
 vim.keymap.set('n', '<leader>x', function()
-vim.cmd('bwipeout!')
+  vim.cmd('bwipeout!')
 end, { desc = 'Close Buffer' })
 
 -- Telescope
@@ -63,3 +62,6 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 -- Nvimtree
 vim.keymap.set('n', '<C-n>', '<cmd> NvimTreeToggle <CR>');
 vim.keymap.set('n', '<leader>e', '<cmd> NvimTreeFocus <CR>');
+
+-- Git Conflict
+vim.keymap.set('n', '<leader>gq', '<cmd> GitConflictListQf <CR>', { desc = 'Git Conflict List Quickfix' })

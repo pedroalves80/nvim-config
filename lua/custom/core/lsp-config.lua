@@ -175,13 +175,6 @@ lspconfig.lua_ls.setup({
         client.server_capabilities.document_formatting = true
         if client.server_capabilities.document_formatting then
             local au_lsp = vim.api.nvim_create_augroup('eslint_lsp', { clear = true })
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                pattern = '*',
-                callback = function()
-                    vim.lsp.buf.format(nil)
-                end,
-                group = au_lsp,
-            })
         end
     end,
 
@@ -258,18 +251,7 @@ lspconfig.cssls.setup({
     },
     on_attach = function(client, bufnr)
         client.server_capabilities.document_formatting = true
-        if client.server_capabilities.document_formatting then
-            local au_lsp = vim.api.nvim_create_augroup('eslint_lsp', { clear = true })
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                pattern = '*',
-                callback = function()
-                    vim.lsp.buf.format(nil)
-                end,
-                group = au_lsp,
-            })
-        end
     end,
-
 })
 
 -- Volar Vue Server
@@ -369,16 +351,6 @@ lspconfig.intelephense.setup({
     handlers = handlers,
     on_attach = function(client, bufnr)
         client.server_capabilities.document_formatting = true
-        if client.server_capabilities.document_formatting then
-            local au_lsp = vim.api.nvim_create_augroup('eslint_lsp', { clear = true })
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                pattern = '*',
-                callback = function()
-                    vim.lsp.buf.format(nil)
-                end,
-                group = au_lsp,
-            })
-        end
     end,
 })
 
@@ -409,16 +381,6 @@ lspconfig.yamlls.setup({
     },
     on_attach = function(client, bufnr)
         client.server_capabilities.document_formatting = true
-        if client.server_capabilities.document_formatting then
-            local au_lsp = vim.api.nvim_create_augroup('eslint_lsp', { clear = true })
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                pattern = '*',
-                callback = function()
-                    vim.lsp.buf.format(nil)
-                end,
-                group = au_lsp,
-            })
-        end
     end,
 })
 
@@ -454,12 +416,11 @@ lspconfig.eslint.setup({
             vim.api.nvim_create_autocmd('BufWritePre', {
                 pattern = '*',
                 callback = function()
-                    -- vim.lsp.buf.format(nil)
-
-                    if vim.bo.filetype == 'scss' or vim.bo.filetype == 'css' then
-                        vim.lsp.buf.format(nil)
-                    else
+                    -- if filetype is javascript, typescript, vue, html run eslintfix all, else run lsp format
+                    if vim.bo.filetype == 'javascript' or vim.bo.filetype == 'typescript' or vim.bo.filetype == 'vue' or vim.bo.filetype == 'html' then
                         vim.cmd('EslintFixAll')
+                    else
+                        vim.lsp.buf.format(nil)
                     end
                 end,
                 group = au_lsp,

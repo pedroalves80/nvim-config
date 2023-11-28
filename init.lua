@@ -61,6 +61,8 @@ pcall(require('telescope').load_extension, 'fzf')
 --  This function gets run when an LSP connects to a particular buffer.
 require 'custom.core.lsp-config'
 
+require 'custom.plugins.configs.ufo'
+
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
