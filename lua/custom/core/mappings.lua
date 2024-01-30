@@ -21,6 +21,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 vim.keymap.set('i', '<C-b>', '<ESC>^i', { desc = 'Beginning of line' })
 vim.keymap.set('i', '<C-e>', '<End>', { desc = 'End of line' })
+vim.keymap.set('n', '<leader>st', ':syntax sync fromstart<CR>', { desc = 'Fix theme colors' })
 
 
 -- Bufferline
