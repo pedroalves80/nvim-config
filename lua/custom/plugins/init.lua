@@ -15,6 +15,8 @@ return {
 	-- NOTE: This is where your plugins related to LSP can be installed.
 	--  The configuration is done below. Search for lspconfig to find it below.
 	{
+
+
 		-- LSP Configuration & Plugins
 		'neovim/nvim-lspconfig',
 		dependencies = {
@@ -97,23 +99,23 @@ return {
 	},
 
 	{
-		-- Theme
-		'catppuccin/nvim',
-		name = 'catppuccin',
-		lazy = false,
-		priority = 2000,
-		opts = {
-			flavour = 'macchiato',
-			background = { -- :h background
-				light = 'latte',
-				dark = 'mocha',
-			},
-			transparent_background = true,
-		},
-		config = function(_, opts)
-			local catppuccin = require 'catppuccin';
-			catppuccin.setup(opts);
-			catppuccin.load();
+		'rebelot/kanagawa.nvim',
+		config = function()
+			require('kanagawa').setup(
+				{
+					transparent = true,
+					colors = {
+						theme = {
+							all = {
+								ui = {
+									bg_gutter = 'none',
+								}
+							}
+						}
+					}
+				}
+			)
+			vim.cmd("colorscheme kanagawa")
 		end,
 	},
 
@@ -124,7 +126,7 @@ return {
 		opts = {
 			options = {
 				icons_enabled = true,
-				theme = 'catppuccin',
+				theme = 'auto',
 				component_separators = '|',
 				section_separators = '',
 			},
@@ -132,14 +134,28 @@ return {
 	},
 
 	{
+		"smjonas/inc-rename.nvim",
+		config = function()
+			require("inc_rename").setup()
+		end,
+	},
+
+	{
 		-- Add indentation guides even on blank lines
 		'lukas-reineke/indent-blankline.nvim',
 		-- Enable `lukas-reineke/indent-blankline.nvim`
 		-- See `:help indent_blankline.txt`
-		opts = {
-			char = '┊',
-			show_trailing_blankline_indent = false,
-		},
+		main = 'ibl',
+		config = function()
+			require('ibl').setup {
+				indent = {
+					char = '',
+				},
+				whitespace = {
+					remove_blankline_trail = true,
+				}
+			}
+		end,
 	},
 
 	-- "gc" to comment visual regions/lines
@@ -275,14 +291,82 @@ return {
 	},
 
 	{
-    'numToStr/Comment.nvim',
-    opts = {
-        -- add any options here
-    },
-    lazy = false,
+		'numToStr/Comment.nvim',
+		opts = {
+			-- add any options here
+		},
+		lazy = false,
 		config = function()
-				require('Comment').setup()
+			require('Comment').setup()
 		end,
+	},
+
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- add any options here
+		},
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			"rcarriga/nvim-notify",
+		},
+		config = function()
+			require("noice").setup({
+				lsp = {
+					-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+					override = {
+						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+						["vim.lsp.util.stylize_markdown"] = true,
+						["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+					},
+				},
+				-- you can enable a preset for easier configuration
+				presets = {
+					bottom_search = true,    -- use a classic bottom cmdline for search
+					command_palette = true,  -- position the cmdline and popupmenu together
+					long_message_to_split = true, -- long messages will be sent to a split
+					inc_rename = false,      -- enables an input dialog for inc-rename.nvim
+					lsp_doc_border = false,  -- add a border to hover docs and signature help
+				},
+			})
+		end,
+	},
+
+	{
+		"nvimdev/dashboard-nvim",
+		event = "VimEnter",
+		config = function()
+			require('dashboard').setup {
+				config = {
+					header = {
+						"",
+						"",
+						"███╗   ██╗██╗██╗    ██╗     ██████╗ ███████╗ ██████ ",
+						"████╗  ██║██║██║    ██║    ██╔════╝ ██╔════╝██╔════ ",
+						"██╔██╗ ██║██║██║ █╗ ██║    ██║  ███╗███████╗██║     ",
+						"██║╚██╗██║██║██║███╗██║    ██║   ██║╚════██║██║     ",
+						"██║ ╚████║██║╚███╔███╔╝    ╚██████╔╝███████║╚██████╗",
+						"╚═╝  ╚═══╝╚═╝ ╚══╝╚══╝      ╚═════╝ ╚══════╝ ╚═════╝",
+						"",
+						"",
+
+					}, --your header
+				}
+			}
+		end,
+		requires = {
+			"nvim-tree/nvim-web-devicons",
+		}
+	},
+
+	{
+		"dstein64/vim-startuptime",
+		cmd = "StartupTime",
 	}
 
 }

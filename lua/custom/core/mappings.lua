@@ -7,7 +7,6 @@ vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Window up' })
 vim.keymap.set('n', '<C-s>', ':w<CR>', { desc = 'Save file' })
 vim.keymap.set('n', '<C-c>', ':%y+<CR>', { desc = 'Copy whole file' })
 vim.keymap.set('n', '<leader>n', ':set nu!<CR>', { desc = 'Toggle line number' })
-vim.keymap.set('n', '<leader>rn', ':set rnu!<CR>', { desc = 'Toggle relative number' })
 vim.keymap.set('n', 'j', [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], { desc = 'Move down', expr = true })
 vim.keymap.set('n', 'k', [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], { desc = 'Move up', expr = true })
 vim.keymap.set('n', '<Up>', [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], { desc = 'Move up', expr = true })
@@ -22,6 +21,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('i', '<C-b>', '<ESC>^i', { desc = 'Beginning of line' })
 vim.keymap.set('i', '<C-e>', '<End>', { desc = 'End of line' })
 vim.keymap.set('n', '<leader>st', ':syntax sync fromstart<CR>', { desc = 'Fix theme colors' })
+vim.keymap.set("n", "<leader>rn", ":IncRename ")
 
 
 -- Bufferline
