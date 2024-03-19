@@ -26,6 +26,25 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
     return newVirtText
 end
 
+local ContinuousResize = function (direction)
+  if direction == "down" then
+    vim.cmd("normal <C-w>-")
+  elseif direction == "up" then
+    vim.cmd("normal <C-w>+")
+  elseif direction == "left" then
+    vim.cmd("normal <C-w><") -- Resize left
+  elseif direction == "right" then
+    vim.cmd("normal <C-w>>") -- Resize right
+  end
+
+  require('repeat').setup({
+    key = "<C-w>" .. direction,
+    delay = 10
+  })
+end
+
+
 return {
     handler = handler,
+    ContinuousResize = ContinuousResize
 }

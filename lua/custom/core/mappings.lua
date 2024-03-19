@@ -1,3 +1,5 @@
+ContinuousResize = require"custom.core.utils".ContinuousResize
+
 -- Core
 vim.keymap.set('n', '<Esc>', ':noh<CR>', { desc = 'Clear highlights' })
 vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Window left' })
@@ -7,6 +9,7 @@ vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Window up' })
 vim.keymap.set('n', '<C-s>', ':w<CR>', { desc = 'Save file' })
 vim.keymap.set('n', '<C-c>', ':%y+<CR>', { desc = 'Copy whole file' })
 vim.keymap.set('n', '<leader>n', ':set nu!<CR>', { desc = 'Toggle line number' })
+vim.keymap.set('n', '<leader>rl', ':set rnu!<CR>', { desc = 'Toggle relative number' })
 vim.keymap.set('n', 'j', [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], { desc = 'Move down', expr = true })
 vim.keymap.set('n', 'k', [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], { desc = 'Move up', expr = true })
 vim.keymap.set('n', '<Up>', [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], { desc = 'Move up', expr = true })
@@ -23,6 +26,26 @@ vim.keymap.set('i', '<C-e>', '<End>', { desc = 'End of line' })
 vim.keymap.set('n', '<leader>st', ':syntax sync fromstart<CR>', { desc = 'Fix theme colors' })
 vim.keymap.set("n", "<leader>rn", ":IncRename ")
 
+-- Split window
+vim.keymap.set("n", "<leader>zh", ":vsplit<Return>", { desc = 'Split window horizontally' })
+vim.keymap.set("n", "<leader>zv", ":split<Return>", { desc = 'Split window vertically' })
+
+-- Resize Window
+vim.keymap.set('n', "<C-w><left>", "<C-w><", { desc = 'Decrease window width' })
+vim.keymap.set('n', "<C-w><right>", "<C-w>>", { desc = 'Increase window width' })
+vim.keymap.set('n', "<C-w><up>", "<C-w>+", { desc = 'Increase window height' })
+vim.keymap.set('n', "<c-w><down>", "<C-w>-", { desc = 'Decrease window height' })
+
+
+-- go back to normal mode inside terminal 
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Go back to normal mode' })
+
+--[[
+vim.keymap.set('n', '<C-w><Down>', function() ContinuousResize("down") end, { noremap = true, silent = true })
+vim.keymap.set('n', '<C-w><Up>', function() ContinuousResize("up") end, { noremap = true, silent = true })
+vim.keymap.set('n', '<C-w><Left>', function() ContinuousResize("left") end, { noremap = true, silent = true })
+vim.keymap.set('n', '<C-w><Right>', function() ContinuousResize("right") end, { noremap = true, silent = true })
+]]--
 
 -- Bufferline
 vim.keymap.set('n', '<tab>', function()
