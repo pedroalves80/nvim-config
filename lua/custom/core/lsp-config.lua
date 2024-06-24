@@ -70,7 +70,7 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts('Send Diagnostic
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+        --vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
         -- Buffer local mappings.
         local bufopts = function(desc)

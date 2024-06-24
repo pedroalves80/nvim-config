@@ -1,6 +1,6 @@
 ContinuousResize = require"custom.core.utils".ContinuousResize
 
--- Core
+--, Core
 vim.keymap.set('n', '<Esc>', ':noh<CR>', { desc = 'Clear highlights' })
 vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Window left' })
 vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Window right' })
@@ -25,6 +25,14 @@ vim.keymap.set('i', '<C-b>', '<ESC>^i', { desc = 'Beginning of line' })
 vim.keymap.set('i', '<C-e>', '<End>', { desc = 'End of line' })
 vim.keymap.set('n', '<leader>st', ':syntax sync fromstart<CR>', { desc = 'Fix theme colors' })
 vim.keymap.set("n", "<leader>rn", ":IncRename ")
+--Change to unix file format
+vim.keymap.set('n', '<leader>cf', ':set ff=unix<CR>', { desc = 'Change to Unix file format' })
+vim.keymap.set('n', '<leader>cd', ':set ff=dos<CR>', { desc = 'Change to Dos file format' })
+
+
+-- Terminal
+-- Open terminal
+vim.keymap.set('n', '<leader>tt', ':terminal<CR>', { desc = 'Open terminal' })
 
 -- Split window
 vim.keymap.set("n", "<leader>zh", ":vsplit<Return>", { desc = 'Split window horizontally' })
@@ -89,3 +97,8 @@ vim.keymap.set('n', '<leader>e', '<cmd> NvimTreeFocus <CR>');
 
 -- Git Conflict
 vim.keymap.set('n', '<leader>gq', '<cmd> GitConflictListQf <CR>', { desc = 'Git Conflict List Quickfix' })
+
+-- Harpoon
+vim.keymap.set('n', '<leader>hh', '<cmd> lua require("harpoon.mark").add_file()<CR>', { desc = 'Add file to harpoon' })
+vim.keymap.set('n', '<leader>hm', '<cmd> lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = 'Toggle harpoon menu' })
+vim.keymap.set('n', '<leader>ht', ':Telescope harpoon marks<CR>', { desc = 'Toggle harpoon menu' })

@@ -56,12 +56,16 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+-- Enable harpoon telescope
+pcall(require('telescope').load_extension, 'harpoon')
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 require 'custom.core.lsp-config'
 
 require 'custom.plugins.configs.ufo'
+
+require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`

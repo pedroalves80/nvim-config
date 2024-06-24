@@ -98,25 +98,37 @@ return {
 		},
 	},
 
+	--{
+	--	'rebelot/kanagawa.nvim',
+	--	config = function()
+	--		require('kanagawa').setup(
+	--			{
+	--				transparent = true,
+	--				colors = {
+	--					theme = {
+	--						all = {
+	--							ui = {
+	--								bg_gutter = 'none',
+	--							}
+	--						}
+	--					}
+	--				}
+	--			}
+	--		)
+	--		vim.cmd("colorscheme kanagawa")
+	--	end,
+	--},
 	{
-		'rebelot/kanagawa.nvim',
+		'navarasu/onedark.nvim',
+		lazy = false,
+		priority = 1000,
 		config = function()
-			require('kanagawa').setup(
-				{
-					transparent = true,
-					colors = {
-						theme = {
-							all = {
-								ui = {
-									bg_gutter = 'none',
-								}
-							}
-						}
-					}
-				}
-			)
-			vim.cmd("colorscheme kanagawa")
-		end,
+			require('onedark').setup {
+				transparent = true,
+				style = 'warm',
+			}
+			vim.cmd [[colorscheme onedark]]
+		end
 	},
 
 	{
@@ -159,7 +171,12 @@ return {
 	},
 
 	-- "gc" to comment visual regions/lines
-	{ 'numToStr/Comment.nvim',         opts = {} },
+	{
+		'numToStr/Comment.nvim',
+		config = function()
+			require('Comment').setup()
+		end,
+	},
 
 	-- Fuzzy Finder (files, lsp, etc)
 	{ 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -333,6 +350,9 @@ return {
 					inc_rename = false,      -- enables an input dialog for inc-rename.nvim
 					lsp_doc_border = false,  -- add a border to hover docs and signature help
 				},
+			});
+			require('notify').setup({
+				background_colour = "#000000"
 			})
 		end,
 	},
@@ -346,12 +366,14 @@ return {
 					header = {
 						"",
 						"",
-						"███╗   ██╗██╗██╗    ██╗     ██████╗ ███████╗ ██████ ",
-						"████╗  ██║██║██║    ██║    ██╔════╝ ██╔════╝██╔════ ",
-						"██╔██╗ ██║██║██║ █╗ ██║    ██║  ███╗███████╗██║     ",
-						"██║╚██╗██║██║██║███╗██║    ██║   ██║╚════██║██║     ",
-						"██║ ╚████║██║╚███╔███╔╝    ╚██████╔╝███████║╚██████╗",
-						"╚═╝  ╚═══╝╚═╝ ╚══╝╚══╝      ╚═════╝ ╚══════╝ ╚═════╝",
+						[[    )                         (          ]],
+						[[ ( /(      (  (       (       )\ )   (   ]],
+						[[ )\()) (   )\))(   '  )\ )   (()/(   )\  ]],
+						[[((_)\  )\ ((_)()\ )  (()/(    /(_))(((_) ]],
+						[[ _((_)((_)_(())\_)()  /(_))_ (_))  )\___ ]],
+						[[| \| | (_)\ \((_)/ / (_)) __|/ __|((/ __|]],
+						[[| .` | | | \ \/\/ /    | (_ |\__ \ | (__ ]],
+						[[|_|\_| |_|  \_/\_/      \___||___/  \___|]],
 						"",
 						"",
 
@@ -372,6 +394,14 @@ return {
 	{
 		"tpope/vim-repeat",
 		cmd = "Repeat",
-	}
+	},
 
+	{
+		'ThePrimeagen/harpoon',
+		event = 'BufRead',
+		dependencies = { 'nvim-lua/plenary.nvim' },
+		config = function()
+			require('harpoon').setup()
+		end,
+	},
 }
