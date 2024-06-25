@@ -76,7 +76,10 @@ return {
           },
         },
       },
+      jsonls = {},
+      angularls = {},
       tsserver = {},
+      cssls = {},
       volar = {
         init_options = {
           typescript = {
