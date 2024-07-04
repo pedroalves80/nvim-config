@@ -7,6 +7,9 @@ vim.keymap.set("n", "<Esc>", ":nohls<CR>", { silent = true })
 -- Save with Ctrl+S
 vim.keymap.set({ "i", "n", "v", "x" }, "<C-s>", vim.cmd.write, { silent = true })
 
+-- Delete character with x without yanking
+vim.keymap.set("n", "x", '"_x')
+
 -- Move lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -49,7 +52,6 @@ vim.keymap.set('n', '<tab>', function()
   require('bufferline').cycle(1)
 end, { desc = 'Goto next buffer' })
 
-
 vim.keymap.set('n', '<S-tab>', function()
   require('bufferline').cycle(-1)
 end, { desc = 'Goto prev buffer' })
@@ -57,6 +59,10 @@ end, { desc = 'Goto prev buffer' })
 vim.keymap.set('n', '<leader>x', function()
   vim.cmd('bwipeout!')
 end, { desc = 'Close Buffer' })
+
+vim.keymap.set('n', '<leader>xx', function()
+  vim.cmd('bufdo bd')
+end, { desc = 'Close all buffers' })
 
 -- NvimTree
 vim.keymap.set("n", "<Leader>e", "<Cmd>NvimTreeToggle<CR>", { silent = true })
@@ -75,7 +81,7 @@ vim.keymap.set("n", "<Leader>fm", "<Cmd>lua vim.lsp.buf.format({ async = true })
 -- Open terminal
 vim.keymap.set('n', '<leader>tt', ':terminal<CR>')
 
--- go back to normal mode inside terminal
+-- Go back to normal mode inside terminal
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
 -- Window Navigation
@@ -91,3 +97,38 @@ vim.keymap.set('n', '<leader>st', ':syntax sync fromstart<CR>')
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+-- Change filetype
+vim.keymap.set('n', '<leader>ft', function()
+  local filetype = vim.fn.input('Filetype: ')
+  if filetype == '' then
+    return
+  end
+
+  local ok, msg = pcall(vim.cmd, 'set filetype=' .. filetype)
+
+  if not ok then
+    print('An error occurred: ' .. msg)
+  else
+    print('Filetype set to ' .. filetype)
+  end
+end, { desc = 'Set filetype' })
+
+-- Restart Lsp
+vim.keymap.set('n', '<leader>rl', ':LspRestart<CR>', { desc = 'Restart LSP' })
+
+-- Resize windows
+vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { silent = true })
+
+-- Prompt for google search
+vim.keymap.set('n', '<leader>g', function()
+  local search = vim.fn.input('Google Search: ')
+  if search == '' then
+    return
+  end
+
+  vim.fn.system('start chrome "https://www.google.com/search?q=' .. search .. '"')
+end, { desc = 'Google Search' })

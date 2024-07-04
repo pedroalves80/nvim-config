@@ -21,7 +21,7 @@ require("lazy").setup(
       version = "57cce98dfdb2f2dd05a0567d89811e6d0505e13b"
     },
     install = {
-      colorscheme = { "vscode" }
+      colorscheme = { "onedark" }
     },
     change_detection = {
       notify = false, -- get a notification when changes are found

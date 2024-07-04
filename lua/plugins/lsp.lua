@@ -41,7 +41,12 @@ return {
         callback = function()
           -- If the project has an ESLint configuration file, run `:EslintFixAll` on save
           if vim.fn.filereadable ".eslintrc.js" == 1 then
-            vim.cmd('EslintFixAll')
+            -- Error handlig is needed because the command is not available in all buffers
+            local ok, _ = pcall(vim.cmd, "EslintFixAll")
+
+            if not ok then
+              vim.lsp.buf.format()
+            end
           else
             vim.lsp.buf.format()
           end
