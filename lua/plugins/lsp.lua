@@ -84,7 +84,11 @@ return {
       jsonls = {},
       angularls = {},
       tsserver = {},
-      cssls = {},
+      cssls = {
+        init_options = {
+          provideFormatter = true,
+        }
+      },
       volar = {
         init_options = {
           typescript = {
